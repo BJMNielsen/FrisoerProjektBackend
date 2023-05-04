@@ -2,9 +2,17 @@ package com.example.frisoerprojektbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Treatment {
 
@@ -13,15 +21,14 @@ public class Treatment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
-    private double Price;
+    private double price;
 
-    @Column(nullable = false, unique = true)
-    private String Name;
+    @Column(unique = true)
+    private String name;
 
-    // One Treatment to many bookingTreatments.
+    // One Treatment to many BookingTreatments.
     @OneToMany(mappedBy = "treatment") // Her referere vi til treatment variablen inde i BookingTreatments klassen.
     @JsonBackReference
-    private List<BookingTreatments> ListOfBookingTreatments;
+    private List<BookingTreatments> listOfBookingTreatments;
 
 }

@@ -23,19 +23,17 @@ public class UserProfile {
     @Column(name = "user_profile_id")
     private int id;
 
-    @Column(nullable = false) // Not null
     private String name;
 
-    @Column(unique = true, nullable = false) // Not null og unique
+    @Column(unique = true)
     private String email;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String phoneNumber;
 
-    @Column(nullable = false) // Not null
     private String password;
 
-    // One UserProfile to many bookings.
+    // One UserProfile to many Bookings.
     // "bookingUserProfile" refers to the field bookingUserProfile in the Booking class that maps the relationship back to the UserProfile entity.
     @OneToMany(mappedBy = "bookingUserProfile", cascade = CascadeType.REMOVE) // Vi mapper vores liste af bookings til bookingUserProfile variablen i Booking klassen.
     @JsonBackReference
