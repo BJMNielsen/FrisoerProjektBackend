@@ -43,5 +43,4 @@ public class UserProfile {
     // which corresponds to the bookingUserProfile field in the Booking entity.
     // This establishes the bidirectional relationship between UserProfile and Booking,
     // where the Booking entity is the inverse side and the UserProfile entity is the owning side.
-
 }

@@ -17,8 +17,8 @@ import java.util.List;
 public class Treatment {
 
     @Id
-    @Column(name = "treatment_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "treatment_id")
     private int id;
 
     private double price;
