@@ -39,4 +39,14 @@ public class UserProfileService {
             return new ResponseEntity<>(newUserProfile, HttpStatus.OK);
         }
     }
+
+  /*  public ResponseEntity<UserProfile> deleteUserProfile(UserProfile userProfile) {
+        boolean notExists = !userProfileRepository.existsById(userProfile.getId());
+        if(notExists){
+
+        }
+        return;
+    }*/
+
+
 }
