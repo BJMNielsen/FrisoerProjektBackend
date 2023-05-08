@@ -42,11 +42,11 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(ResourceAlreadyExistsException.class)
     ResponseEntity<ErrorMessage> resourceAlreadyExistsExceptionHandler(Exception ex, WebRequest request) {
         ErrorMessage errorMessage = new ErrorMessage(
-                HttpStatus.ALREADY_REPORTED.value(),
+                HttpStatus.BAD_REQUEST.value(),
                 new Date(),
                 "Resource Already Exists Exception caught: " + ex.getMessage(),
                 "The description of the request: " + request.getDescription(true));
-        return new ResponseEntity<>(errorMessage, HttpStatus.ALREADY_REPORTED);
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 }
 
