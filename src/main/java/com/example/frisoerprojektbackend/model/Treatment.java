@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "treatments")
 public class Treatment {
 
     @Id
@@ -26,9 +27,9 @@ public class Treatment {
     @Column(unique = true)
     private String name;
 
-    // One Treatment to many BookingTreatments.
-    @OneToMany(mappedBy = "treatment") // Her referere vi til treatment variablen inde i BookingTreatments klassen.
+    // One Treatment to many BookedTreatment.
+    @OneToMany(mappedBy = "treatment") // Her referere vi til treatment variablen inde i BookedTreatment klassen.
     @JsonBackReference
-    private List<BookingTreatments> listOfBookingTreatments;
+    private List<BookedTreatment> listOfBookingTreatments;
 
 }

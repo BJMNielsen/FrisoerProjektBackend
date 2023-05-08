@@ -15,16 +15,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "bookings")
 public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "booking_id")
-    private int Id;
+    private int id;
 
-    private LocalDate Date;
-
-    private double Price;
+    private LocalDate date;
 
     // Her laver vi en foreign key column i vores booking tabel med navnet "user_profile_id", der referere til den column i
     // user_profile tabellen som hedder user_profile_id. Dvs booking tabellen får en ny kolonne med navnet "user_profile_id",
@@ -39,10 +38,10 @@ public class Booking {
     @JoinColumn(name = "time_slot_id", referencedColumnName = "time_slot_id") // Her kalder vi vores foreign key column "time_slot_id", og værdierne den lægger ind sætter vi til at være dem der findes i referenceColumnName = "time_slot_id" variablen inde fra TimeSlot klassen.
     private TimeSlot timeSlot;
 
-    // One Booking to many BookingTreatments
-    @OneToMany(mappedBy = "booking") // Her referere vi til booking variablen inde i BookingTreatments klassen.
+    // One Booking to many BookedTreatment
+    @OneToMany(mappedBy = "booking") // Her referere vi til booking variablen inde i BookedTreatment klassen.
     @JsonBackReference
-    private List<BookingTreatments> bookingTreatmentsList;
+    private List<BookedTreatment> bookedTreatmentList;
 
 
 

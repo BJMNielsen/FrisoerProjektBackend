@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "user_profile")
+@Table(name = "user_profiles")
 public class UserProfile {
 
     @Id
