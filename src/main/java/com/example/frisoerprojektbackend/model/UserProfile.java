@@ -28,7 +28,7 @@ public class UserProfile {
     @Column(unique = true)
     private String email;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String phoneNumber;
 
     private String password;
