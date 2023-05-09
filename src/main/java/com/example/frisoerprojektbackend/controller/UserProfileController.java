@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin
 @RestController
 public class UserProfileController {
 
@@ -38,7 +38,6 @@ public class UserProfileController {
     public ResponseEntity<UserProfile> deleteUserProfile(@RequestBody UserProfile userProfile) {
         return userProfileService.deleteUserProfile(userProfile);
     }
-
 
 
 }
