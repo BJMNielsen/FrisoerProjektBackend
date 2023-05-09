@@ -18,10 +18,14 @@ public class BookingController {
     return bookingService.getBookings();
   }
 
+  @GetMapping("/bookings/userid/{id}")
+  public List<Booking> getBookingsByUserProfileId(@PathVariable int id) {
+    return bookingService.getBookingsByUserProfileId(id);
+  }
+
   @PostMapping("/booking")
   public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
     return bookingService.addBooking(booking);
   }
-
 
 }

@@ -3,7 +3,6 @@ package com.example.frisoerprojektbackend.service;
 import com.example.frisoerprojektbackend.exception.ResourceAlreadyExistsException;
 import com.example.frisoerprojektbackend.exception.ResourceNotFoundException;
 import com.example.frisoerprojektbackend.model.Booking;
-import com.example.frisoerprojektbackend.model.UserProfile;
 import com.example.frisoerprojektbackend.repository.BookingRepository;
 import com.example.frisoerprojektbackend.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,24 +14,38 @@ import java.util.List;
 
 @Service
 public class BookingService {
-  @Autowired
-  BookingRepository bookingRepository;
+    @Autowired
+    BookingRepository bookingRepository;
 
-  public List<Booking> getBookings() {
-    return bookingRepository.findAll();
-  }
+    @Autowired
+    UserProfileRepository userProfileRepository;
 
-  public ResponseEntity<Booking> addBooking(Booking booking) {
-    boolean exists = bookingRepository.existsById(booking.getId());
-    if (exists) {
-      // Tjekker om der allerede eksistere en userprofile med et ID. Hvis den existere thrower vi en exception der bliver grebet i vores exception controller og lavet til et responseEntity object, som vores frontend også kan håndtere.
-      throw new ResourceAlreadyExistsException("Booking with id: " + booking.getId() + " already exists and therefore can't be added.");
+    public List<Booking> getBookings() {
+        return bookingRepository.findAll();
     }
 
-    else {
-      // Hvis den ikke existere, og email ikke eksistere, så laver vi en ny userprofile og gemmer i databasen.
-      Booking newBooking = bookingRepository.save(booking);
-      return new ResponseEntity<>(newBooking, HttpStatus.OK);
+
+    public List<Booking> getBookingsByUserProfileId(int id) {
+        boolean noUserExists = !userProfileRepository.existsById(id);
+
+        if (noUserExists) {
+            throw new ResourceNotFoundException("There is no user with the id of: " + id + " so it was not possible to find any bookings for that user");
+        }
+        return bookingRepository.findBookingsByBookingUserProfileId(id);
     }
-  }
+
+
+    public ResponseEntity<Booking> addBooking(Booking booking) {
+        boolean exists = bookingRepository.existsById(booking.getId());
+        if (exists) {
+            // Tjekker om der allerede eksistere en userprofile med et ID. Hvis den existere thrower vi en exception der bliver grebet i vores exception controller og lavet til et responseEntity object, som vores frontend også kan håndtere.
+            throw new ResourceAlreadyExistsException("Booking with id: " + booking.getId() + " already exists and therefore can't be added.");
+        } else {
+            // Hvis den ikke existere, og email ikke eksistere, så laver vi en ny userprofile og gemmer i databasen.
+            Booking newBooking = bookingRepository.save(booking);
+            return new ResponseEntity<>(newBooking, HttpStatus.OK);
+        }
+    }
+
+
 }

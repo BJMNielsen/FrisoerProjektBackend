@@ -31,4 +31,9 @@ public class TimeSlot {
     @OneToMany(mappedBy = "timeSlot") // One TimeSlot to many Bookings.
     @JsonBackReference
     private List<Booking> timeSlotBookings;
+
+    public TimeSlot(LocalTime startTime, LocalTime endTime) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
 }

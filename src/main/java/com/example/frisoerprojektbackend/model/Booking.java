@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -44,5 +45,17 @@ public class Booking {
     private List<BookedTreatment> bookedTreatmentList;
 
 
+    // JPA er smart nok til at kalde den her getTreatments metode når der skal returnes et Booking objekt.
+    // JPA bruger nemlig alle getters når den skal returnere et booking objekt.
+    // Dvs selvom du ikke har en attribut der hedder treatment, så når vi skriver getTreatments
+    public List<Treatment> getTreatments() {
+        List<Treatment> treatments = new ArrayList<>();
 
+        for (BookedTreatment bookedTreatment: bookedTreatmentList) {
+            Treatment t1 = bookedTreatment.getTreatment();
+            t1.setPrice(bookedTreatment.getPrice());
+            treatments.add(t1);
+        }
+        return treatments;
+    }
 }

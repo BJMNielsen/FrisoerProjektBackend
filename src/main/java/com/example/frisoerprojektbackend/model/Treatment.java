@@ -32,4 +32,9 @@ public class Treatment {
     @JsonBackReference
     private List<BookedTreatment> listOfBookingTreatments;
 
+    public Treatment(double price, String name) {
+        this.price = price;
+        this.name = name;
+    }
+
 }

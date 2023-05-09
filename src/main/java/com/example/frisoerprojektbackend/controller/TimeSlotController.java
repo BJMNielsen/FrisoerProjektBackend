@@ -12,18 +12,24 @@ import java.util.List;
 @RestController
 public class TimeSlotController {
 
-  @Autowired
-  TimeSlotService timeSlotService;
+    @Autowired
+    TimeSlotService timeSlotService;
 
-  @GetMapping("/timeslots")
-  public List<TimeSlot> getTimeSlots() {
-    return timeSlotService.getTimeSlots();
-  }
+    @GetMapping("/timeslots")
+    public List<TimeSlot> getTimeSlots() {
+        return timeSlotService.getTimeSlots();
+    }
 
-  @PostMapping("/timeslot")
-  public ResponseEntity<TimeSlot> addTimeSlot(@RequestBody TimeSlot timeSlot) {
-    return timeSlotService.addTimeSlot(timeSlot);
-  }
+    @GetMapping("/timeslot/{id}")
+    public TimeSlot getTimeSlotById(@PathVariable int id) {
+        return timeSlotService.getTimeSlotById(id);
+    }
+
+    @PostMapping("/timeslot")
+    public ResponseEntity<TimeSlot> addTimeSlot(@RequestBody TimeSlot timeSlot) {
+        return timeSlotService.addTimeSlot(timeSlot);
+    }
+
 
 
 }
