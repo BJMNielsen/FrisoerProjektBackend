@@ -19,7 +19,7 @@ public class UserProfileController {
         return userProfileService.getUserProfiles();
     }
 
-    @GetMapping("/userprofiles/{id}")
+    @GetMapping("/userprofile/{id}")
     public UserProfile getUserProfileById(@PathVariable int id) {
         return userProfileService.getUserProfileById(id);
     }
