@@ -60,20 +60,28 @@ public class TreatmentService {
     }
 
     public ResponseEntity<Treatment> updateTreatment(Treatment treatment) {
+        // Vi skaffer id fra den treatment objekt vi modtager.
         int treatmentId = treatment.getId();
+        // og navn
         String treatmentName = treatment.getName();
 
         boolean idIsUnknown = !treatmentRepository.existsById(treatmentId);
+        // Vi tjekker om den treatments id eksistere, hvis ikke, thrower vi en exception
         if (idIsUnknown) {
             throw new ResourceNotFoundException("It is not possible to update a treatment with the id: " + treatmentId + " as it does not exist in the database");
         }
+        // Vi går ind og finder den treatment der allerede eksistere i databasen ud fra den treatment vi modtagers id.
+        // pastTreatment er hvad den behandling nuværende hedder inde i databasen.
         Treatment pastTreatment = getTreatmentById(treatmentId);
         String pastName = pastTreatment.getName();
 
         boolean nameExists = treatmentRepository.existsByName(treatmentName);
         boolean differentNames = !treatmentName.equals(pastName);
+
         // Hvis navnet på treatmenten man ønsker at update allerede eksisterer, men det er forskelligt for det navn treatmenten havde før, så må det være en anden treatment der allerede har det navn og der sendes en fejl tilbage.
         // Hvis navnet ikke allerede eksisterer, så kører koden, men hvis navnet eksisterer og det er det samme som det var før, så kører koden også
+        // Hvis navnet allerede findes i databasen, og navnet vi prøver at give vores treatment vi skal update er nyt, dvs ikke det samme som pastName, så overwriter og saver vi det nye navn.
+        // Hvis navnet allerede eksistere, dvs det nye navn vi ændrer vores treatment til er det samme som pastName (det den allerede hed), så saver vi også navnet.
         if (nameExists && differentNames) {
             throw new ResourceAlreadyExistsException("It is not possible to update a treatment with the name of: " + treatmentName + " as there already exists a treatment with that name in the database");
         }
