@@ -1,5 +1,6 @@
 package com.example.frisoerprojektbackend.service;
 
+import com.example.frisoerprojektbackend.config.SortBookingsByDateAndTimeSlot;
 import com.example.frisoerprojektbackend.dto.BookingTreatmentDTO;
 import com.example.frisoerprojektbackend.exception.ResourceAlreadyExistsException;
 import com.example.frisoerprojektbackend.exception.ResourceNotFoundException;
@@ -42,7 +43,15 @@ public class BookingService {
     }
 
     public List<Booking> getBookingsByDate(LocalDate date) {
-        return bookingRepository.findBookingByDate(date);
+
+        // Vi finder alle de bookings der har den samme dato som der blevet givet i parameteren: "date"
+        List<Booking> foundBookingsByADate = bookingRepository.findBookingByDate(date);
+        // Vi får den liste sorteret ud efter deres dato og derefter ud efter deres timeslots
+        // Så alle de med en tidligere dato kommer først og dem som har samme dato
+        // De vil blive sorteret så det er de bookings med en tidligere timeslot
+        sortBookings(foundBookingsByADate);
+        // Den nu sorteret liste bliver nu givet tilbage
+        return foundBookingsByADate;
     }
 
 
@@ -56,7 +65,7 @@ public class BookingService {
 
         // Vi tjekker først om UserProfile eksistere i databasen.
         boolean userProfileExist = userProfileRepository.existsById(userProfile.getId());
-        if(!userProfileExist){
+        if (!userProfileExist) {
             throw new ResourceNotFoundException("UserProfile is with id: " + userProfile.getId() + " does not exist, and therefore we cannot add a booking for the profile.");
         }
         // Så tjekker vi om newBooking allerede eksistere, hvis ja, så thrower vi en exception
@@ -99,7 +108,7 @@ public class BookingService {
         return new ResponseEntity<>(newBookingSaved, HttpStatus.OK);
     }
 
-    private void addBookingTreatmentsToBooking(List<Treatment> listOfTreatments, Booking booking){
+    private void addBookingTreatmentsToBooking(List<Treatment> listOfTreatments, Booking booking) {
         List<BookedTreatment> listOfSavedBookedTreatments = new ArrayList<>();
         // for hver treatment i vores liste af treatments
         for (Treatment treatment : listOfTreatments) {
@@ -116,6 +125,12 @@ public class BookingService {
         }
         // Vi tager så vores booking, og sætter dens attribute felt kaldet bookingTreatmentList til at være vores liste af saved bookings.
         booking.setBookedTreatmentList(listOfSavedBookedTreatments);
+    }
+
+    // Sortere bookings efter dato og efter timeslots hvis bookingerne har samme dato.
+    private void sortBookings(List<Booking> bookings) {
+        SortBookingsByDateAndTimeSlot sortBookings = new SortBookingsByDateAndTimeSlot();
+        bookings.sort(sortBookings);
     }
 }
 
