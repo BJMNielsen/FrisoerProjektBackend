@@ -30,7 +30,7 @@ public class UserProfileService {
         return  userProfileRepository.findUserProfileByEmail(email);
     }
 
-    public UserProfile loginWithEmail(String email, String password){
+    public UserProfile findUserProfileByEmail(String email){
         UserProfile userProfile = userProfileRepository.findUserProfileByEmail(email);
         if (userProfile.getEmail().equals(email)){
             return userProfile;
