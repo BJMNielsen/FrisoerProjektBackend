@@ -12,9 +12,9 @@ public class LoginController {
   @Autowired
   UserProfileService userProfileService;
 
-  @GetMapping("/login/{email}")
-  public UserProfile getLogin(@PathVariable String email) {
-   return userProfileService.findUserProfileByEmail(email);
+  @GetMapping("/login/{email}/{password}")
+  public UserProfile getLogin(@PathVariable String email, @PathVariable String password) {
+   return userProfileService.loginWithEmail(email,password);
   }
 
 }

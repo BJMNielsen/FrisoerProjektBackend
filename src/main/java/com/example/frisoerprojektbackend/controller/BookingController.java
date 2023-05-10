@@ -5,6 +5,8 @@ import com.example.frisoerprojektbackend.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.List;
 @CrossOrigin
 @RestController
@@ -21,6 +23,11 @@ public class BookingController {
   @GetMapping("/bookings/userid/{id}")
   public List<Booking> getBookingsByUserProfileId(@PathVariable int id) {
     return bookingService.getBookingsByUserProfileId(id);
+  }
+
+  @GetMapping("/bookings/date/{date}")
+  public List<Booking> getBookingsByDate(@PathVariable LocalDate date) {
+    return bookingService.getBookingsByDate(date);
   }
 
   @PostMapping("/booking")
