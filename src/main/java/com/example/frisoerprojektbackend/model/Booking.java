@@ -40,7 +40,8 @@ public class Booking {
     private TimeSlot timeSlot;
 
     // One Booking to many BookedTreatment
-    @OneToMany(mappedBy = "booking") // Her referere vi til booking variablen inde i BookedTreatment klassen.
+    // Hvis en booking bliver deleted, så bliver alle BookedTreatments der hører til bookingen også slettet.
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.REMOVE) // Her referere vi til booking variablen inde i BookedTreatment klassen.
     @JsonBackReference
     private List<BookedTreatment> bookedTreatmentList;
 
