@@ -25,9 +25,4 @@ public class BookedTreatmentController {
     public BookedTreatment getBookedTreatmentById(@PathVariable int id) {
         return bookedTreatmentService.getBookedTreatmentById(id);
     }
-
-    @PostMapping("/bookedtreatment")
-    public ResponseEntity<BookedTreatment> addBookedTreatment(@RequestBody Booking booking, @PathVariable int id){
-        return bookedTreatmentService.addBookedTreatment(booking, id);
-    }
 }
