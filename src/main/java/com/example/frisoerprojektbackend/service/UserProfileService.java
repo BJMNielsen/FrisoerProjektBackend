@@ -4,6 +4,7 @@ import com.example.frisoerprojektbackend.exception.ResourceAlreadyExistsExceptio
 import com.example.frisoerprojektbackend.exception.ResourceNotFoundException;
 import com.example.frisoerprojektbackend.model.UserProfile;
 import com.example.frisoerprojektbackend.repository.UserProfileRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class UserProfileService {
         return userProfileRepository.findUserProfileByEmail(email).orElseThrow(()-> new ResourceNotFoundException("There is no userprofile with the email: " + email + " and therefore could not get a profile"));
     }
 
-    public UserProfile loginWithEmail(String email, String password){
+    public UserProfile findUserProfileByEmail(String email, String password){
         UserProfile userProfile = getUserProfileByEmail(email);
 
         if (userProfile.getPassword().equals(password)){
