@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -35,5 +36,9 @@ public class TimeSlotService {
 
     public TimeSlot getTimeSlotById(int id) {
         return timeSlotRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Timeslot with id: " + id + " does not exist and could therefore not find any timeslot."));
+    }
+
+    public List<TimeSlot> findAvailableTimeSlotsByDate(LocalDate date) {
+        return timeSlotRepository.findAvailableTimeSlotsByDate(date);
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @CrossOrigin
@@ -23,6 +24,11 @@ public class TimeSlotController {
     @GetMapping("/timeslot/{id}")
     public TimeSlot getTimeSlotById(@PathVariable int id) {
         return timeSlotService.getTimeSlotById(id);
+    }
+
+    @GetMapping("/timeslots/available/{date}")
+    public List<TimeSlot> getAvailableTimeSlotsByDate(@PathVariable LocalDate date){
+        return timeSlotService.findAvailableTimeSlotsByDate(date);
     }
 
     @PostMapping("/timeslot")

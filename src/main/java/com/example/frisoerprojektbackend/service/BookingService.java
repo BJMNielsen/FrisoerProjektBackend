@@ -140,6 +140,18 @@ public class BookingService {
         SortBookingsByDateAndTimeSlot sortBookings = new SortBookingsByDateAndTimeSlot();
         bookings.sort(sortBookings);
     }
+
+    public List<Booking> findPastAndCurrentDateBookings(){
+        List<Booking> pastBookings = bookingRepository.findPastAndCurrentDateBookings();
+        sortBookings(pastBookings);
+        return pastBookings;
+    }
+
+    public List<Booking> findFutureAndCurrentDateBookings(){
+        List<Booking> futureBookings = bookingRepository.findFutureAndCurrentDateBookings();
+        sortBookings(futureBookings);
+        return futureBookings;
+    }
 }
 
 
