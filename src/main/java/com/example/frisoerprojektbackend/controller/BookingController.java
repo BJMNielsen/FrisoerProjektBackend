@@ -9,32 +9,42 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+
 @CrossOrigin
 @RestController
 public class BookingController {
 
-  @Autowired
-  BookingService bookingService;
+    @Autowired
+    BookingService bookingService;
 
-  @GetMapping("/bookings")
-  public List<Booking> getBookings() {
-    return bookingService.getBookings();
-  }
+    @GetMapping("/bookings")
+    public List<Booking> getBookings() {
+        return bookingService.getBookings();
+    }
 
-  @GetMapping("/bookings/userid/{id}")
-  public List<Booking> getBookingsByUserProfileId(@PathVariable int id) {
-    return bookingService.getBookingsByUserProfileId(id);
-  }
+    @GetMapping("/bookings/userid/{id}")
+    public List<Booking> getBookingsByUserProfileId(@PathVariable int id) {
+        return bookingService.getBookingsByUserProfileId(id);
+    }
 
-  @GetMapping("/bookings/date/{date}")
-  public List<Booking> getBookingsByDate(@PathVariable LocalDate date) {
-    return bookingService.getBookingsByDate(date);
-  }
+    @GetMapping("/bookings/date/{date}")
+    public List<Booking> getBookingsByDate(@PathVariable LocalDate date) {
+        return bookingService.getBookingsByDate(date);
+    }
 
-  @PostMapping("/booking")
-  public ResponseEntity<Booking> addBooking(@RequestBody BookingTreatmentDTO bookingTreatmentDTO) {
+    @GetMapping("/bookings/past")
+    public List<Booking> findPastAndCurrentDateBookings() {
+        return bookingService.findPastAndCurrentDateBookings();
+    }
 
-    return bookingService.addBooking(bookingTreatmentDTO);
-  }
+    @GetMapping("/bookings/future")
+    public List<Booking> findFutureAndCurrentDateBookings() {
+        return bookingService.findFutureAndCurrentDateBookings();
+    }
+
+    @PostMapping("/booking")
+    public ResponseEntity<Booking> addBooking(@RequestBody BookingTreatmentDTO bookingTreatmentDTO) {
+        return bookingService.addBooking(bookingTreatmentDTO);
+    }
 
 }
