@@ -14,7 +14,7 @@ public class LoginController {
 
   @GetMapping("/login/{email}/{password}")
   public UserProfile getLogin(@PathVariable String email, @PathVariable String password) {
-   return userProfileService.loginWithEmail(email,password);
+   return userProfileService.findUserProfileByEmail(email, password);
   }
 
 }
