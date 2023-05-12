@@ -4,7 +4,6 @@ import com.example.frisoerprojektbackend.exception.ResourceAlreadyExistsExceptio
 import com.example.frisoerprojektbackend.exception.ResourceNotFoundException;
 import com.example.frisoerprojektbackend.model.UserProfile;
 import com.example.frisoerprojektbackend.repository.UserProfileRepository;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -90,7 +89,8 @@ public class UserProfileService {
         if(!exists){
             throw new ResourceNotFoundException("Userprofile with id: " + userProfile.getId() + " could not be found and therefore could not be deleted");
         }
+        UserProfile deletedUserProfile = getUserProfileById(userProfile.getId());
         userProfileRepository.deleteById(userProfile.getId());
-        return new ResponseEntity<>(userProfile, HttpStatus.OK);
+        return new ResponseEntity<>(deletedUserProfile, HttpStatus.OK);
     }
 }

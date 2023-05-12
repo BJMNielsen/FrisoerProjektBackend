@@ -76,7 +76,7 @@ public class TreatmentService {
         String pastName = pastTreatment.getName();
 
         boolean nameExists = treatmentRepository.existsByName(treatmentName);
-        boolean differentNames = !treatmentName.equals(pastName);
+        boolean differentNames = !pastName.equals(treatmentName);
 
         // Hvis navnet på treatmenten man ønsker at update allerede eksisterer, men det er forskelligt for det navn treatmenten havde før, så må det være en anden treatment der allerede har det navn og der sendes en fejl tilbage.
         // Hvis navnet ikke allerede eksisterer, så kører koden, men hvis navnet eksisterer og det er det samme som det var før, så kører koden også
@@ -86,7 +86,7 @@ public class TreatmentService {
             throw new ResourceAlreadyExistsException("It is not possible to update a treatment with the name of: " + treatmentName + " as there already exists a treatment with that name in the database");
         }
 
-        boolean hasNoName = treatmentName.isBlank();
+        boolean hasNoName = treatmentName == null || treatmentName.isBlank();
         if (hasNoName) {
             throw new ResourceNotFoundException("It is not possible to update the treatment with the id: " + treatmentId + " without giving it a name");
         }
