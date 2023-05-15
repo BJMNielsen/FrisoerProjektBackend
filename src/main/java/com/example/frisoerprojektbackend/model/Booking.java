@@ -59,4 +59,14 @@ public class Booking {
         }
         return treatments;
     }
+
+    public double getFullPrice() {
+        double sum = 0;
+        List<Treatment> treatments = getTreatments();
+
+        for (Treatment treatment: treatments) {
+            sum += treatment.getPrice();
+        }
+        return sum;
+    }
 }
