@@ -69,6 +69,13 @@ public class StartupDataConfig implements ApplicationRunner {
                 createBookedTreatment(createdLarsBooking);
             }
         });
+        Booking gammelBooking = new Booking();
+        gammelBooking.setBookingUserProfile(userProfiles.get(0));
+        gammelBooking.setTimeSlot(allTimeSlots.get(5));
+        gammelBooking.setDate(LocalDate.now().minusDays(1));
+        Booking createdOldBooking = bookingRepository.save(gammelBooking);
+        createBookedTreatment(createdOldBooking);
+
     }
 
     private void createBookedTreatment(Booking booking) {
