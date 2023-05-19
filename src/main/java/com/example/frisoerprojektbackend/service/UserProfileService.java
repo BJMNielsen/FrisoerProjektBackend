@@ -32,11 +32,10 @@ public class UserProfileService {
     public UserProfile findUserProfileByEmail(String email, String password){
         UserProfile userProfile = getUserProfileByEmail(email);
 
-        if (userProfile.getPassword().equals(password)){
-            return userProfile;
+        if (!userProfile.getPassword().equals(password)){
+            throw new ResourceNotFoundException("The password for the user with the email: " + email + " was incorrect");
         }
-
-        throw new ResourceNotFoundException("The password for the user with the email: " + email + " was incorrect");
+        return userProfile;
     }
 
 
